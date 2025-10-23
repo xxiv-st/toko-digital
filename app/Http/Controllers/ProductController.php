@@ -90,6 +90,15 @@ class ProductController extends Controller
         $data['cover_image_path'] = $request->file('cover_image')->store('product-covers', 'public');
         }
 
+        if ($request->hasFile('digital_file')) {
+        // Hapus file digital lama jika ada
+            if ($product->digital_file_path) {
+                Storage::disk('public')->delete($product->digital_file_path);
+            }
+            // Simpan file digital baru
+            $validatedData['file_path'] = $request->file('digital_file')->store('product-files', 'public');
+        }
+
         if ($request->hasFile('file_path')) {
         // Hapus file lama
         Storage::disk('public')->delete($product->file_path);

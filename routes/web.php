@@ -45,6 +45,15 @@ Route::middleware('auth')->group(function () {
     
     // Rute Manajemen Pesanan Admin
     Route::get('/admin/orders', [OrderController::class, 'indexAdmin'])->name('admin.orders.index');
+
+    // Rute untuk menampilkan riwayat pesanan pengguna
+    Route::get('/my-orders', [OrderController::class, 'indexUser'])->name('orders.index');
+
+    // Rute untuk admin meng-update status pesanan
+    Route::patch('/admin/orders/{order}/complete', [OrderController::class, 'complete'])->name('admin.orders.complete');
+
+    // Rute untuk pengguna men-download file
+    Route::get('/orders/{order}/download', [OrderController::class, 'download'])->name('orders.download');
 });
 
 

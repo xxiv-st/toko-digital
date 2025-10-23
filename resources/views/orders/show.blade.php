@@ -35,6 +35,7 @@
                         </div>
                     @endif
 
+                    @if ($order->status == 'pending')
                     <h3 class="text-lg font-medium mt-6">Instruksi Pembayaran:</h3>
                     <div class="mt-4 p-4 bg-gray-50 rounded-md">
                         <p>Silakan lakukan transfer ke rekening berikut:</p>
@@ -43,7 +44,14 @@
                         <p>Atas Nama: <strong>Toko Digital Sederhana</strong></p>
                         <p class="mt-4 text-sm text-red-600">PENTING: Admin akan memverifikasi pembayaran secara manual. Pesanan Anda akan diproses setelah pembayaran dikonfirmasi.</p>
                     </div>
-
+                    @elseif ($order->status == 'completed' && $order->product && $order->product->file_path)
+                    <h3 class="text-lg font-medium mt-6">File Anda:</h3>
+                    <div class="mt-4">
+                        <a href="{{ route('orders.download', $order) }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            Download {{ $order->product->name }}
+                        </a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

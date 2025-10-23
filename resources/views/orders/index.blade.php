@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Manajemen Pesanan') }}
+            {{ __('Riwayat Pesanan Saya') }}
         </h2>
     </x-slot>
 
@@ -14,7 +14,7 @@
                             <thead class="bg-gray-200">
                                 <tr>
                                     <th class="py-2 px-4 text-left">ID Pesanan</th>
-                                    <th class="py-2 px-4 text-left">Nama Pembeli</th>
+                                    <th class="py-2 px-4 text-left">Tanggal</th>
                                     <th class="py-2 px-4 text-left">Produk</th>
                                     <th class="py-2 px-4 text-left">Total</th>
                                     <th class="py-2 px-4 text-left">Status</th>
@@ -25,27 +25,19 @@
                                 @forelse ($orders as $order)
                                     <tr class="border-b">
                                         <td class="py-2 px-4">#{{ $order->id }}</td>
-                                        <td class="py-2 px-4">{{ $order->user->name }}</td>
-                                        <td class="py-2 px-4">{{ $order->product->name }}</td>
+                                        <td class="py-2 px-4">{{ $order->created_at->format('d M Y') }}</td>
+                                        <td class="py-2 px-4">{{ $order->product ? $order->product->name : '[Produk Dihapus]' }}</td>
                                         <td class="py-2 px-4">Rp {{ number_format($order->amount, 0, ',', '.') }}</td>
                                         <td class="py-2 px-4 capitalize">{{ $order->status }}</td>
-                                        <td class="py-2 px-4 whitespace-nowrap">
-                                            @if ($order->status == 'pending')
-                                                <form action="{{ route('admin.orders.complete', $order) }}" method="POST" class="inline">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button type="submit" class="text-green-600 hover:text-green-900">
-                                                        Setujui
-                                                    </button>
-                                                </form>
-                                            @else
-                                                <span class="text-gray-500">Selesai</span>
-                                            @endif
+                                        <td class="py-2 px-4">
+                                            <a href="{{ route('orders.show', $order) }}" class="text-blue-600 hover:text-blue-900">
+                                                Lihat Detail
+                                            </a>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="py-4 px-4 text-center">Belum ada pesanan masuk.</td>
+                                        <td colspan="6" class="py-4 px-4 text-center">Anda belum memiliki riwayat pesanan.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
