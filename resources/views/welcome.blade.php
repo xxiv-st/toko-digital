@@ -30,9 +30,13 @@
                 <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     @foreach ($products as $product)
                         <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                            <img src="{{ asset('storage/' . $product->cover_image_path) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+                            <a href="{{ route('product.show', $product) }}">
+                                <img src="{{ asset('storage/'. $product->cover_image_path) }}" alt="{{ $product->name }}" class="h-48 w-full object-cover">
+                            </a>
                             <div class="p-4">
-                                <h3 class="text-lg font-semibold text-gray-800">{{ $product->name }}</h3>
+                                <a href="{{ route('product.show', $product) }}">
+                                    <h3 class="text-lg font-semibold text-gray-900 hover:text-blue-600">{{ $product->name }}</h3>
+                                </a>
                                 <p class="mt-2 text-xl font-bold text-indigo-600">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                                 <a href="{{ route('checkout.show', $product) }}" class="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded-md text-center inline-block hover:bg-indigo-700">
                                     Beli Sekarang

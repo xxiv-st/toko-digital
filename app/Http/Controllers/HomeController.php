@@ -11,4 +11,8 @@ class HomeController extends Controller
         $products = Product::latest()->get();
         return view('Welcome', compact('products'));
     }
+
+    public function show(Product $product) {
+        return view('product-detail', compact('product'));
+    }
 }

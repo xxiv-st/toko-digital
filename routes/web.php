@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 
 // Rute publik (bisa diakses siapa saja)
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/product/{product}', [HomeController::class, 'show'])->name('product.show');
 
 
 // Grup untuk semua rute yang WAJIB LOGIN
